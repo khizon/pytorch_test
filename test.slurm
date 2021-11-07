@@ -1,4 +1,5 @@
 #!/bin/bash
+#SBATCH -J test
 #SBATCH --partition=gpu
 #SBATCH --qos=12c-1h_2gpu
 #SBATCH --output=my_first_job.out
