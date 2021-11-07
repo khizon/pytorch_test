@@ -1,0 +1,6 @@
+CUDA_DEVICE=/dev/nvidia0
+>> anaconda/3-5.3.1 has been loaded.
+>> cuda/11.2.2_cudnn-8.1.1 has been loaded.
+/home/kiel.hizon/.conda/envs/cs284-env/bin/python: can't open file '/scratch1/kiel.hizon/cs284/pytorch_test/script.y': [Errno 2] No such file or directory
+srun: error: saliksik-gpu-04: task 0: Exited with exit code 2
+DeprecationWarning: 'source deactivate' is deprecated. Use 'conda deactivate'.
