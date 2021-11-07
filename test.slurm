@@ -10,8 +10,8 @@
 echo "CUDA_DEVICE=/dev/nvidia$CUDA_VISIBLE_DEVICES"
 
 # prepare working environment
-module load anaconda/2-5.3.1
-module load cuda/10.1_cudnn-7.6.5
+module load anaconda/3-5.3.1
+module load cuda/11.2.2_cudnn-8.1.1
 
 # activate your python environment
 source activate cs284-env
