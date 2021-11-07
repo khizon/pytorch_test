@@ -18,5 +18,5 @@ module load cuda/11.2.2_cudnn-8.1.1
 source activate cs284-env
 
 # execute your application
-srun python script.y
-source deactivate
+srun python script.py
+conda deactivate
