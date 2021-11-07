@@ -4,6 +4,9 @@ from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor
 
+import logging
+
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y%m%d%H%M%S',level=logging.DEBUG)
 
 # 1- download dataset
 # 2- create data loader
@@ -70,15 +73,15 @@ def train_single_epoch(model, data_loader, loss_fn, optimiser, device):
         loss.backward()
         optimiser.step()
 
-    print(f"loss: {loss.item()}")
+    logging.debug(f"loss: {loss.item()}")
 
 
 def train(model, data_loader, loss_fn, optimiser, device, epochs):
     for i in range(epochs):
-        print(f"Epoch {i+1}")
+        logging.debug(f"Epoch {i+1}")
         train_single_epoch(model, data_loader, loss_fn, optimiser, device)
-        print("---------------------------")
-    print("Finished training")
+        logging.debug("---------------------------")
+    logging.debug("Finished training")
 
 
 if __name__ == "__main__":
@@ -93,9 +96,9 @@ if __name__ == "__main__":
     else:
         device = "cpu"
 
-    print(f"Using {device}")
+    logging.debug(f"Using {device}")
     feed_forward_net = FeedForwardNet().to(device)
-    print(feed_forward_net)
+    logging.debug(feed_forward_net)
 
     # initialise loss funtion + optimiser
     loss_fn = nn.CrossEntropyLoss()
@@ -107,4 +110,4 @@ if __name__ == "__main__":
 
     # save model
     torch.save(feed_forward_net.state_dict(), "feedforwardnet.pth")
-    print("Trained feed forward net saved at feedforwardnet.pth")
+    logging.debug("Trained feed forward net saved at feedforwardnet.pth")
