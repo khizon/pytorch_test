@@ -2,10 +2,13 @@
 #SBATCH -J test
 #SBATCH --partition=gpu
 #SBATCH --qos=12c-1h_2gpu
-#SBATCH --output=my_first_job.out
+#SBATCH --output=pa-3.out
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=2
+
+#SBATCH --mail-user=kiel.hizon@eee.upd.edu.ph
+#SBATCH --mail-type=ALL 
 
 # check which GPU device was allocated
 echo "CUDA_DEVICE=/dev/nvidia$CUDA_VISIBLE_DEVICES"
