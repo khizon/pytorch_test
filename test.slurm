@@ -5,7 +5,7 @@
 #SBATCH --output=my_first_job.out
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=2
+#SBATCH --cpus-per-task=4
 
 # check which GPU device was allocated
 echo "CUDA_DEVICE=/dev/nvidia$CUDA_VISIBLE_DEVICES"
@@ -18,5 +18,5 @@ module load cuda/11.2.2_cudnn-8.1.1
 source activate cs284-env
 
 # execute your application
-srun python script.py
+srun python pa3.py
 conda deactivate
