@@ -18,5 +18,5 @@ module load cuda/11.2.2_cudnn-8.1.1
 source activate cs284-env
 
 # execute your application
-srun python pa3.py
+srun python pa-3.py
 conda deactivate

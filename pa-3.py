@@ -42,9 +42,9 @@ class Cifar10(Dataset):
 
   def __len__(self):
     if self.train:
-      return 50000
+      return 25000
     else:
-      return 10000
+      return 5000
   
   def __getitem__(self,index):
     if self.train:
@@ -223,7 +223,7 @@ if __name__ == "__main__":
     DROPOUT_P = 0.1
     BATCH_SIZE = 16
     start_epoch = 0
-    DATA_SET_PATH = 'DATASET/'
+    DATA_SET_PATH = 'DATASETS/'
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     classes = ('plane', 'car', 'bird', 'cat',
