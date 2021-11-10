@@ -7,11 +7,12 @@ import torch.nn.functional as F
 # from torchsummary import summary
 import os
 import pickle
-# import numpy as np
+import numpy as np
 # from PIL import Image
 # from matplotlib import pyplot as plt
 from tqdm import tqdm
 import csv
+import random
 
 """Build the timefunc decorator."""
 
@@ -187,8 +188,10 @@ def train(model, data_loader, loss_fxn, optimizer, scheduler, device, start_epoc
   loss = []
   accuracy = []
   
-  for epoch in range(start_epoch, epochs):   
+  for epoch in range(start_epoch, epochs):
+    start = time.perf_counter()
     curr_loss, curr_acc = train_single_epoch(model, data_loader, loss_fxn, optimizer, device, scheduler)
+    time_elapsed = time.perf_counter() - start
     loss.append(curr_loss)
     accuracy.append(curr_acc)
 
@@ -213,47 +216,51 @@ def train(model, data_loader, loss_fxn, optimizer, scheduler, device, start_epoc
 
     with open(r'metrics_30.csv', 'a', newline='') as f:
       writer = csv.writer(f)
-      writer.writerow([curr_loss, curr_acc])
+      writer.writerow([epoch, curr_loss, curr_acc, time_elapsed])
 
   print("Finished training")
   return loss, accuracy
 
 if __name__ == "__main__":
-    EPOCHS = 80
-    DROPOUT_P = 0.3
-    BATCH_SIZE = 16
-    start_epoch = 0
-    DATA_SET_PATH = 'DATASETS/'
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+  torch.manual_seed(86)
+  random.seed(86)
+  np.random.seed(86)
 
-    classes = ('plane', 'car', 'bird', 'cat',
-            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+  EPOCHS = 80
+  DROPOUT_P = 0.3
+  BATCH_SIZE = 16
+  start_epoch = 0
+  DATA_SET_PATH = 'DATASETS/'
+  device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-    print(f'Using: {device}')
+  classes = ('plane', 'car', 'bird', 'cat',
+          'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-    # Initialize Dataset
+  print(f'Using: {device}')
 
-    train_set, test_set = Cifar10(DATA_SET_PATH, train=True, device = device), Cifar10(DATA_SET_PATH, train=False, device = device)
-    train_dataloader, test_dataloader = create_data_loader(train_set, BATCH_SIZE, train=True), create_data_loader(test_set, BATCH_SIZE, train=False)
+  # Initialize Dataset
 
-    # Initialize Model and Training Objects
-    train_dataloader, test_dataloader = create_data_loader(train_set, BATCH_SIZE, train=True), create_data_loader(test_set, BATCH_SIZE, train=False)
-    model = mini_inception(3,10,p=DROPOUT_P).to(device)
-    loss_fxn = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr = 1e-2)
-    scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, start_factor = 1, end_factor = 1e-2, total_iters=EPOCHS)
+  train_set, test_set = Cifar10(DATA_SET_PATH, train=True, device = device), Cifar10(DATA_SET_PATH, train=False, device = device)
+  train_dataloader, test_dataloader = create_data_loader(train_set, BATCH_SIZE, train=True), create_data_loader(test_set, BATCH_SIZE, train=False)
 
-    # Training Loop
-    train_continue = False
-    if train_continue:
-        checkpoint = torch.load('check-30-4.pth.tar')
-        model.load_state_dict(checkpoint['state_dict'])
-        optimizer.load_state_dict(checkpoint['optimizer'])
-        scheduler.load_state_dict(checkpoint['scheduler'])
-        loss = checkpoint['loss']
-        accuracy = checkpoint['accuracy']
-        start_epoch = checkpoint['epoch'] + 1
-    else:
-        if os.path.exists('metrics_30.csv'):
-            os.remove('metrics_30.csv')
-    loss, accuracy = train(model, train_dataloader, loss_fxn, optimizer, scheduler, device, start_epoch, EPOCHS,)
+  # Initialize Model and Training Objects
+  train_dataloader, test_dataloader = create_data_loader(train_set, BATCH_SIZE, train=True), create_data_loader(test_set, BATCH_SIZE, train=False)
+  model = mini_inception(3,10,p=DROPOUT_P).to(device)
+  loss_fxn = nn.CrossEntropyLoss()
+  optimizer = torch.optim.SGD(model.parameters(), lr = 1e-2)
+  scheduler = torch.optim.lr_scheduler.LinearLR(optimizer, start_factor = 1, end_factor = 1e-2, total_iters=EPOCHS)
+
+  # Training Loop
+  train_continue = True
+  if train_continue:
+      checkpoint = torch.load('check-30-19.pth.tar')
+      model.load_state_dict(checkpoint['state_dict'])
+      optimizer.load_state_dict(checkpoint['optimizer'])
+      scheduler.load_state_dict(checkpoint['scheduler'])
+      loss = checkpoint['loss']
+      accuracy = checkpoint['accuracy']
+      start_epoch = checkpoint['epoch'] + 1
+  else:
+      if os.path.exists('metrics_30.csv'):
+          os.remove('metrics_30.csv')
+  loss, accuracy = train(model, train_dataloader, loss_fxn, optimizer, scheduler, device, start_epoch, EPOCHS,)
