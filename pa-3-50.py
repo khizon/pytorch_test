@@ -221,7 +221,7 @@ def train(model, data_loader, loss_fxn, optimizer, scheduler, device, start_epoc
   return loss, accuracy
 
 if __name__ == "__main__":
-    EPOCHS = 20
+    EPOCHS = 80
     DROPOUT_P = 0.5 #50% dropout
     BATCH_SIZE = 16
     start_epoch = 0
