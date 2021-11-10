@@ -1,0 +1,8 @@
+CUDA_DEVICE=/dev/nvidia0
+>> anaconda/3-5.3.1 has been loaded.
+>> cuda/11.2.2_cudnn-8.1.1 has been loaded.
+Traceback (most recent call last):
+  File "/scratch1/kiel.hizon/cs284/pytorch_test/pa-3.py", line 7, in <module>
+    from torchsummary import summary
+ModuleNotFoundError: No module named 'torchsummary'
+srun: error: saliksik-gpu-06: task 0: Exited with exit code 1
