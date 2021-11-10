@@ -2,7 +2,7 @@
 #SBATCH -J test
 #SBATCH --partition=gpu
 #SBATCH --qos=12c-1h_2gpu
-#SBATCH --output=pa-3.out
+#SBATCH --output=pa-3_v2.out
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
