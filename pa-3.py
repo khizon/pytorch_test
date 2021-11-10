@@ -42,7 +42,7 @@ class Cifar10(Dataset):
 
   def __len__(self):
     if self.train:
-      return 25000
+      return 20000
     else:
       return 5000
   
@@ -202,16 +202,16 @@ def train(model, data_loader, loss_fxn, optimizer, scheduler, device, start_epoc
           'accuracy': accuracy,
           'epoch': epoch
       }
-      torch.save(checkpoint, f"check-{epoch}.pth.tar")
+      torch.save(checkpoint, f"check-30-{epoch}.pth.tar")
       print(f'Epoch: {epoch+1} | Loss: {curr_loss} | Checkpoint saved')
     else:
       print(f'Epoch: {epoch+1} | Loss: {curr_loss} |')
 
     # Save loss and accuracy values
-    if not os.path.exists('metrics.csv'):
-        with open('metrics.csv', 'w'): pass
+    if not os.path.exists('metrics_30.csv'):
+        with open('metrics_30.csv', 'w'): pass
 
-    with open(r'metrics.csv', 'a', newline='') as f:
+    with open(r'metrics_30.csv', 'a', newline='') as f:
       writer = csv.writer(f)
       writer.writerow([curr_loss, curr_acc])
 
@@ -220,7 +220,7 @@ def train(model, data_loader, loss_fxn, optimizer, scheduler, device, start_epoc
 
 if __name__ == "__main__":
     EPOCHS = 20
-    DROPOUT_P = 0.1
+    DROPOUT_P = 0.3
     BATCH_SIZE = 16
     start_epoch = 0
     DATA_SET_PATH = 'DATASETS/'
@@ -246,7 +246,7 @@ if __name__ == "__main__":
     # Training Loop
     train_continue = False
     if train_continue:
-        checkpoint = torch.load('check-4.pth.tar')
+        checkpoint = torch.load('check-30-4.pth.tar')
         model.load_state_dict(checkpoint['state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer'])
         scheduler.load_state_dict(checkpoint['scheduler'])
@@ -254,6 +254,6 @@ if __name__ == "__main__":
         accuracy = checkpoint['accuracy']
         start_epoch = checkpoint['epoch'] + 1
     else:
-        if os.path.exists('metrics.csv'):
-            os.remove('metrics.csv')
+        if os.path.exists('metrics_30.csv'):
+            os.remove('metrics_30.csv')
     loss, accuracy = train(model, train_dataloader, loss_fxn, optimizer, scheduler, device, start_epoch, EPOCHS,)
