@@ -42,7 +42,7 @@ class Cifar10(Dataset):
 
   def __len__(self):
     if self.train:
-      return 20
+      return 20000
     else:
       return 5000
   
