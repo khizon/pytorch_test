@@ -5,7 +5,7 @@
 #SBATCH --output=pa-3_v2.out
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=2
 
 #SBATCH --mail-user=kiel.hizon@eee.upd.edu.ph
 #SBATCH --mail-type=ALL 
