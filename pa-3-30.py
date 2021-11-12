@@ -253,7 +253,7 @@ if __name__ == "__main__":
   # Training Loop
   train_continue = True
   if train_continue:
-      checkpoint = torch.load('check-30-19.pth.tar')
+      checkpoint = torch.load('check-30-19.pth.tar', map_location=torch.device(device))
       model.load_state_dict(checkpoint['state_dict'])
       optimizer.load_state_dict(checkpoint['optimizer'])
       scheduler.load_state_dict(checkpoint['scheduler'])
