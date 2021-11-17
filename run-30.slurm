@@ -18,7 +18,7 @@ module load anaconda/3-5.3.1
 module load cuda/11.2.2_cudnn-8.1.1
 
 # activate your python environment
-source activate cs284-env
+source activate pytorch_test_env
 
 # execute your application
 srun -p gpu --qos=12c-1h_2gpu --pty python pa-3-30.py 
