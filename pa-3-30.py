@@ -43,7 +43,7 @@ class Cifar10(Dataset):
 
   def __len__(self):
     if self.train:
-      return 20000
+      return 1000
     else:
       return 5000
   
@@ -226,7 +226,7 @@ if __name__ == "__main__":
   random.seed(86)
   np.random.seed(86)
 
-  EPOCHS = 80
+  EPOCHS = 1
   DROPOUT_P = 0.3
   BATCH_SIZE = 16
   start_epoch = 0

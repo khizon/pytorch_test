@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH -J p_30_2nd_run
+#SBATCH -J p_30_gpu_test
 #SBATCH --partition=gpu
 #SBATCH --qos=12c-1h_2gpu
-#SBATCH --output=pa-3_v2.out
+#SBATCH --output=gpu_test.out
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
@@ -21,5 +21,5 @@ module load cuda/11.2.2_cudnn-8.1.1
 source activate cs284-env
 
 # execute your application
-srun python pa-3-30.py
+srun -p gpu --qos=12c-1h_2gpu --pty python pa-3-30.py 
 conda deactivate
