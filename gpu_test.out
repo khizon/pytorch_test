@@ -1,0 +1,10 @@
+CUDA_DEVICE=/dev/nvidia0
+>> anaconda/3-5.3.1 has been loaded.
+>> cuda/11.2.2_cudnn-8.1.1 has been loaded.
+srun: error: ioctl(TIOCGWINSZ): Inappropriate ioctl for device
+srun: error: Not using a pseudo-terminal, disregarding --pty option
+Traceback (most recent call last):
+  File "pa-3-30.py", line 1, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+srun: error: saliksik-gpu-01: task 0: Exited with exit code 1
