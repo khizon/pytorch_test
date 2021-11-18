@@ -205,16 +205,16 @@ def train(model, data_loader, loss_fxn, optimizer, scheduler, device, start_epoc
           'accuracy': accuracy,
           'epoch': epoch
       }
-      torch.save(checkpoint, f"check-30full-{epoch}.pth.tar")
+      torch.save(checkpoint, f"check-50full-{epoch}.pth.tar")
       print(f'Epoch: {epoch} | Loss: {curr_loss} | Checkpoint saved')
     else:
       print(f'Epoch: {epoch} | Loss: {curr_loss} |')
 
     # Save loss and accuracy values
-    if not os.path.exists('metrics_30full.csv'):
-        with open('metrics_30full.csv', 'w'): pass
+    if not os.path.exists('metrics_50full.csv'):
+        with open('metrics_50full.csv', 'w'): pass
 
-    with open(r'metrics_30full.csv', 'a', newline='') as f:
+    with open(r'metrics_50full.csv', 'a', newline='') as f:
       writer = csv.writer(f)
       writer.writerow([epoch, curr_loss, curr_acc, time_elapsed])
 
@@ -261,6 +261,6 @@ if __name__ == "__main__":
       accuracy = checkpoint['accuracy']
       start_epoch = checkpoint['epoch'] + 1
   else:
-      if os.path.exists('metrics_30full.csv'):
-          os.remove('metrics_30full.csv')
+      if os.path.exists('metrics_50full.csv'):
+          os.remove('metrics_50full.csv')
   loss, accuracy = train(model, train_dataloader, loss_fxn, optimizer, scheduler, device, start_epoch, EPOCHS,)
