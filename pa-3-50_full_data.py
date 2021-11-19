@@ -227,7 +227,7 @@ if __name__ == "__main__":
   np.random.seed(86)
 
   EPOCHS = 80
-  DROPOUT_P = 0.3
+  DROPOUT_P = 0.5
   BATCH_SIZE = 16
   start_epoch = 0
   DATA_SET_PATH = 'DATASETS/'
